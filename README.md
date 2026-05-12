@@ -73,7 +73,7 @@ This repository is focused on:
 ## 🚦 Getting Started
 
 ```bash
-git clone https://github.com/GAURAV-InnovativeCodeZone/PYTHON-PROGRAMMING.git
+git clone https://github.com/gauravpanwar08/PYTHON-PROGRAMMING.git
 cd PYTHON-PROGRAMMING
 ---
 Run any Python file:
