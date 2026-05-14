@@ -1,3 +1,6 @@
+# PATH PARAMETERS - Used when resource identity is required.
+# Example -/users/5
+
 from fastapi import FastAPI
 
 app = FastAPI()

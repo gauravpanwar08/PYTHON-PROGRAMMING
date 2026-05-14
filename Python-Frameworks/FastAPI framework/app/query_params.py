@@ -1,3 +1,6 @@
+# QUERY PARAMETERS - Used for: filtering, pagination, searching, optional values
+# Example -/users?limit=5
+
 from fastapi import FastAPI
 
 app = FastAPI()
