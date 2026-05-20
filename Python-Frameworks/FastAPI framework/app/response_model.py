@@ -1,3 +1,8 @@
+"""
+A response model is a structured data framework that defines, validates, and 
+formats the information sent back to a user or client after receiving a request.
+"""
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 
