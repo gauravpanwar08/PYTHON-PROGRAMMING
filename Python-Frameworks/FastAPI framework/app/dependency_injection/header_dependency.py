@@ -1,0 +1,14 @@
+# Concept: request headers
+
+from fastapi import FastAPI, Depends, Header
+
+app = FastAPI()
+
+
+def get_token(authorization: str = Header()):
+    return authorization
+
+
+@app.get("/profile")
+def profile(token=Depends(get_token)):
+    return {"token": token}
