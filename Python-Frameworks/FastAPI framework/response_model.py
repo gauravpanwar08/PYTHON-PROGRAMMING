@@ -1,7 +1,12 @@
-"""
-A response model is a structured data framework that defines, validates, and 
-formats the information sent back to a user or client after receiving a request.
-"""
+# RESPONSE MODEL:
+# Used to control and validate outgoing API responses.
+# A response model is a structured data framework that defines, validates, and formats the information
+# then sent back to a user or client after receiving a request.
+#
+# Commonly used for:
+# - Hiding passwords/tokens
+# - Standardizing responses
+# ------------------------------------------------------------------------------
 
 from fastapi import FastAPI
 from pydantic import BaseModel
