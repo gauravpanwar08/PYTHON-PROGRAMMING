@@ -1,4 +1,11 @@
-# Concept: app-wide dependency
+# Global Dependencies:
+# Dependencies applied to the entire FastAPI application.
+#
+# Commonly used for:
+# - Global authentication
+# - Logging
+# - Request validation
+# ---------------------------------------------------------------------------
 
 from fastapi import FastAPI, Depends
 

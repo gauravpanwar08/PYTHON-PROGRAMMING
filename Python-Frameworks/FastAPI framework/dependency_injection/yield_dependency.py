@@ -1,4 +1,11 @@
-# Concept: cleanup lifecycle and resource management
+# Yield Dependencies:
+# Used for setup and cleanup operations during request lifecycle.
+#
+# Commonly used for:
+# - Database sessions
+# - Resource management
+# - Connection cleanup
+# ---------------------------------------------------------------------------
 
 from fastapi import FastAPI, Depends
 

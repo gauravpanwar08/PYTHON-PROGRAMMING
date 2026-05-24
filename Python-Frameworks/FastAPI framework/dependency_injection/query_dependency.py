@@ -1,4 +1,11 @@
-# Concept: reusable query params
+# Query Dependency:
+# Concept: Reusable query parameter logic using Depends().
+# 
+# Commonly used for:
+# - Pagination
+# - Filtering
+# - Shared query handling
+# ---------------------------------------------------------------------------
 
 from fastapi import FastAPI, Depends
 

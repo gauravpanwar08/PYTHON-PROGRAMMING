@@ -1,4 +1,11 @@
-# Concept: request headers
+# Header Dependency:
+# Concept: Dependency Injection with request headers.
+#
+# Commonly used for:
+# - JWT authentication
+# - API key validation
+# - Authorization systems
+# ---------------------------------------------------------------------------
 
 from fastapi import FastAPI, Depends, Header
 

@@ -1,4 +1,13 @@
+# Dependency Injection:
 # Concept: Basic Depends() and return value injection
+# FastAPI feature used to reuse common logic across routes using Depends().
+#
+# Common Uses:
+# - Authentication
+# - Database sessions
+# - Permissions
+# - Shared logic
+# ---------------------------------------------------------------------------
 
 from fastapi import FastAPI, Depends
 

@@ -1,4 +1,12 @@
+# Nested Dependencies:
 # Concept: dependency inside dependency
+# A dependency can depend on another dependency.
+#
+# Commonly used in:
+# - Authentication chains
+# - User verification
+# - Permission systems
+# ---------------------------------------------------------------------------
 
 from fastapi import FastAPI, Depends
 

@@ -1,4 +1,12 @@
+# Class Dependencies:
 # Concept: class-based dependencies
+# Using classes as dependencies in FastAPI.
+#
+# Commonly used for:
+# - Pagination objects
+# - Filters
+# - Reusable request configurations
+# -----------------------------------------------------------------
 
 from fastapi import FastAPI, Depends
 

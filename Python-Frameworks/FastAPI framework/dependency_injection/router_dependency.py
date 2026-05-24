@@ -1,4 +1,4 @@
-# Concept: router-level dependency
+# Router Dependency: router-level dependency
 
 from fastapi import Depends, APIRouter
 
