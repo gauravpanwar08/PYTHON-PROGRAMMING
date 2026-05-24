@@ -1,12 +1,13 @@
-# HTTP methods communicate the specific action a client wants to perform on a server resource.
-"""
-This is foundation of CRUD APIs and mostly used methods:
-GET     → fetch/read
-POST    → create
-PUT     → update
-DELETE  → remove
-PATCH   → partial update
-"""
+# HTTP METHODS: 
+# Communicate the specific action a client wants to perform on a server resource.
+#
+# This is foundation of CRUD APIs and mostly used methods:
+# GET    -> Read data
+# POST   -> Create data
+# PUT    -> Update data
+# PATCH  -> Partial update
+# DELETE -> Delete data
+# -----------------------------------------------------------------------------------
 
 from fastapi import FastAPI
 
@@ -47,13 +48,12 @@ def delete_product(product_id: int):
 
 
 # Advanced but Rarely Used Methods - FastAPI also supports other standard HTTP methods for specialized communication.
-"""
-OPTIONS	→ Allowed methods info
-HEAD	→ Headers only
-TRACE	→ Diagnostic/debug
-CONNECT	→ Tunnel connection
-"""
+# OPTIONS → Allowed methods info
+# HEAD	  → Headers only
+# TRACE	  → Diagnostic/debug
+# CONNECT → Tunnel connection
 
 # @app.options(): Returns the communication options available for the target resource.
 # @app.head(): Retrieves the response headers identical to a GET request, but without the response body.
 # @app.trace(): Performs a message loop-back test along the path to the target resource.
+# @app.connect(): Establishes a tunnel to the server identified by the target resource, often used for SSL.
