@@ -1,4 +1,5 @@
-# Path Operation Metadata: Used to add extra information to API endpoints.
+# PATH OPERATION METADATA:
+# Used to add extra information to API endpoints.
 #
 # Benefits:
 # - Better Swagger documentation
