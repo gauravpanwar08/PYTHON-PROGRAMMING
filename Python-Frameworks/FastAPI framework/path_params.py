@@ -1,5 +1,9 @@
-# PATH PARAMETERS - Used when resource identity is required.
-# Example -/users/5
+# PATH PARAMETERS: 
+# Used to capture dynamic values directly from the URL path.
+# Commonly used for resource identification like user IDs, product IDs, etc.
+#
+# Example: /users/10
+# ----------------------------------------------------------------------------
 
 from fastapi import FastAPI
 
