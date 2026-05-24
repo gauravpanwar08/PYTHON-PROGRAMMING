@@ -1,4 +1,5 @@
-# Headers: Used to send metadata with HTTP requests.
+# HEADERS:
+# Used to send metadata with HTTP requests.
 # FastAPI automatically extracts header values using Header() and HTTP headers use hyphen format.
 #
 # Common Uses:
