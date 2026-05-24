@@ -1,7 +1,12 @@
+# Main Application Entry Point & Router Registry
+# Main FastAPI application that includes multiple routers.
+
+
 from fastapi import FastAPI
 
-from app.api_router.routers import users
-from app.api_router.routers import products
+# Importing isolated router configurations from the project module layers
+from api_router.routers import users
+from api_router.routers import products
 
 app = FastAPI()
 

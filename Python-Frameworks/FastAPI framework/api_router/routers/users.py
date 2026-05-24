@@ -1,3 +1,5 @@
+# Users Management APIRouter Configuration
+
 from fastapi import APIRouter
 
 router = APIRouter(
