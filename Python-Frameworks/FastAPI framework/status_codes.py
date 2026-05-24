@@ -1,7 +1,16 @@
-"""
-HTTP status code is a three-digit response sent by a server to a browser (or client) indicating the outcome of a request.
-These status code helps the client understand whether the request was successful, if there was an error, or if further action is needed.
-"""
+# STATUS CODES:
+# HTTP status codes indicate the result of an API request.
+# HTTP status code is a three-digit response sent by a server to a browser (or client).
+# Helps the client understand whether the request was successful, if there was an error, or if further action is needed.
+#
+# Common Codes:
+# 200 -> Success
+# 201 -> Resource Created
+# 404 -> Not Found
+# 422 -> Validation Error
+# 500 -> Internal Server Error
+# ------------------------------------------------------------------------------
+
 
 from fastapi import FastAPI, status
 from pydantic import BaseModel
