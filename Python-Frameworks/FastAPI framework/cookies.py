@@ -1,11 +1,12 @@
-# Cookies: Small pieces of data stored in the browser and sent with requests.
+# COOKIES:
+# Small pieces of data stored in the browser and sent with requests.
 #
 # Common Uses:
 # - Session management
 # - User authentication
 # - Remember login/preferences
 # - Tracking user behavior
-# --------------------------------------------------------------
+# -------------------------------------------------------------------
 
 from typing import Optional
 
