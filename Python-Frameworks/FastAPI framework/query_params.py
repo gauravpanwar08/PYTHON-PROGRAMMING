@@ -1,5 +1,9 @@
-# QUERY PARAMETERS - Used for: filtering, pagination, searching, optional values
-# Example -/users?limit=5
+# QUERY PARAMETERS:
+# Used for filtering, pagination, searching, sorting, optional values
+# Used to send optional data in the URL after '?'.
+#
+# Example: /products?limit=10&skip=5
+#----------------------------------------------------------------------------
 
 from fastapi import FastAPI
 
@@ -14,10 +18,7 @@ def get_products(category: str, price: float):
         "message": f"Products in category '{category}' with price less than {price}"
     }
     
-# Optional parameters with default values
-from fastapi import FastAPI
-
-app = FastAPI()
+# Optional parameters - if not provided, default values will be used
 
 @app.get("/products")
 def get_products(limit: int = 10, skip: int = 0):
