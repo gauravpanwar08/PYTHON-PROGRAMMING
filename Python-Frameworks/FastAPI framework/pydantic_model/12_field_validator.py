@@ -1,57 +1,41 @@
-# ============================================================
-#          PYDANTIC - FIELD VALIDATOR
-# field_validator() → Validates a specific field
+# ==================================================
+#          FASTAPI + PYDANTIC - FIELD VALIDATOR
 #
-# mode="before" → Before Validation/type conversion
-# mode="after"  → After Validation/type conversion
-#                  and it is the default mode
-# ============================================================
+# field_validator()    → Validates a specific field
+# mode="before"        → Runs before Validation/type conversion or works on the raw input value
+# mode="after"         → Runs after Validation/type conversion or works on the validated/parsed value and it is the default mode
+# ValidationInfo       → Provides information about the current field and already validated data
+# Value Transformation → Modifies/cleans the input value
+# Error Detection      → Checks custom conditions and raises ValueError when validation fails
+# ================================================================================================================================
 
 
+from typing import Any
 from fastapi import FastAPI
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, ValidationInfo, field_validator
 
 
 app = FastAPI()
 
-# PYDANTIC MODEL
 
 class User(BaseModel):
-
     name: str
     username: str
     age: int
+    email: str
 
-
-    # FIELD VALIDATOR
+    # ----------------------------------------------------------------------
+    # Error Detection - Validator can also be used to check/detect the error
+    # ----------------------------------------------------------------------
 
     @field_validator("username")
     @classmethod
     def check_space(cls, value):
 
         if " " in value:
-
-            raise ValueError(
-                "Username cannot contain spaces"
-            )
+            raise ValueError("Username cannot contain spaces")
 
         return value
-
-
-    # VALIDATOR CAN ALSO MODIFY THE VALUE
-
-    @field_validator("username")
-    @classmethod
-    def validate_username(cls, value):
-
-        return value.strip().lower()
-
-
-    @field_validator("name")
-    @classmethod
-    def validate_name(cls, value):
-
-        return value.title()
 
 
     @field_validator("age")
@@ -59,15 +43,10 @@ class User(BaseModel):
     def validate_age(cls, value):
 
         if value < 18:
-
-            raise ValueError(
-                "Age must be 18 or above"
-            )
+            raise ValueError("Age must be 18 or above")
 
         return value
 
-
-    # VALIDATE MULTIPLE FIELDS INDIVIDUALLY
 
     @field_validator("name", "username")
     @classmethod
@@ -76,31 +55,92 @@ class User(BaseModel):
         return value
 
 
-    # mode="before" - Runs before Pydantic validation/type conversion
+    # --------------------------------------------------------
+    # mode="before"
+    # --------------------------------------------------------
 
     @field_validator("name", mode="before")
     @classmethod
-    def validate_name_before(cls, value):
+    def clean_name(cls, value: Any):
 
-        return value.strip()
+        print("\nBefore Validation:")
+        print("Value:", value)
+        print("Type:", type(value))
 
-
-    # mode="after" - Runs after Pydantic validation/type conversion
-    #"after" is the default mode
-
-    @field_validator("username", mode="after")
-    @classmethod
-    def validate_username_after(cls, value):
+        if isinstance(value, str):
+            return value.strip()
 
         return value
 
 
-# FASTAPI ENDPOINT
+    # --------------------------------------------------------
+    # mode="after"
+    # --------------------------------------------------------
+
+    @field_validator("name", mode="after")
+    @classmethod
+    def validate_name_length(cls, value: str):
+
+        print("\nAfter Validation:")
+        print("Value:", value)
+        print("Type:", type(value))
+
+        if len(value) < 3:
+            raise ValueError(
+                "Name must contain at least 3 characters"
+            )
+
+        return value
+
+
+    # ----------------------------------------------------------------------
+    # Value Transformation - Validator can also be used to modify the value
+    # ----------------------------------------------------------------------
+
+    @field_validator("username")
+    @classmethod
+    def transform_username(cls, value):
+
+        return value.strip().lower()
+
+
+    @field_validator("name")
+    @classmethod
+    def transform_name(cls, value):
+
+        return value.title()
+
+
+    # --------------------------------------------------------
+    # ValidationInfo
+    # --------------------------------------------------------
+
+    @field_validator("email")
+    @classmethod
+    def validate_email(
+        cls,
+        value: str,
+        info: ValidationInfo
+    ):
+
+        print("\nValidationInfo:")
+        print("Field:", info.field_name)
+        print("Already validated data:", info.data)
+
+        if not value.endswith("@example.com"):
+            raise ValueError(
+                "Email must end with @example.com"
+            )
+
+        return value
+
+
+# Create User Endpoint
 
 @app.post("/users")
 def create_user(user: User):
 
     return {
         "message": "User created successfully",
-        "user": user
+        "user": user.model_dump()
     }

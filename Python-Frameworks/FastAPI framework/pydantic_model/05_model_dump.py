@@ -1,8 +1,12 @@
 # ============================================================
-#               FASTAPI + PYDANTIC - model_dump()
+#          FASTAPI + PYDANTIC - ADVANCED model_dump()
 #
-# model_dump() is a method that converts a Pydantic model instance into a dictionary representation.
-# In FastAPI, this is useful when we want to process, filter, or customize the data before returning a response.
+# model_dump()           → Converts a Pydantic model into a dictionary
+# exclude_none=True      → Excludes fields whose value is None
+# exclude_unset=True     → Excludes fields that were not explicitly provided
+# exclude_defaults=True  → Excludes fields having their default value
+# include={}             → Includes only selected fields
+# exclude={}             → Excludes selected fields
 # ============================================================
 
 from fastapi import FastAPI
@@ -11,15 +15,27 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+
 # User Model
 
 class User(BaseModel):
+
     name: str
     age: int
     email: str
     phone: str | None = None
-    city: str | None = None
-    password: str
+    is_active: bool = True
+
+
+# Update User Model
+
+class UserUpdate(BaseModel):
+
+    name: str | None = None
+    age: int | None = None
+    email: str | None = None
+    phone: str | None = None
+    is_active: bool = True
 
 
 # Create User
@@ -27,64 +43,93 @@ class User(BaseModel):
 @app.post("/users")
 def create_user(user: User):
 
-   # Pydantic Model before converting to Dictionary
-
-    print("Pydantic Object:")
-    print(user)
-
-
-    # Convert Pydantic Model to Dictionary
-
-    user_data = user.model_dump()
-
-    print("\nDictionary:")
-    print(user_data)
-
-    print("\nType:")
-    print(type(user_data))
+    return {
+        "user": user.model_dump()
+    }
 
 
-    # 1. Exclude Specific Fields
-    # ------------------------------------------------------------
+# Get User without None values
 
-    print("\n1. EXCLUDE FIELDS")
+@app.get("/users/{user_id}")
+def get_user(user_id: int):
 
-    user_without_password = user.model_dump(
-        exclude={"password"}
+    user = User(
+        name="Gaurav",
+        age=22,
+        email="gaurav@example.com"
     )
 
-    print(user_without_password)
-
-
-    # 2. Include Specific Fields
-    # ------------------------------------------------------------
-
-    print("\n2. INCLUDE FIELDS")
-
-    user_basic_info = user.model_dump(
-        include={"name", "email"}
-    )
-
-    print(user_basic_info)
-
-
-    # 3. Exclude None Values
-    # ------------------------------------------------------------
-
-    print("\n3. EXCLUDE NONE")
-
-    user_without_none = user.model_dump(
+    return user.model_dump(
         exclude_none=True
     )
 
-    print(user_without_none)
 
+# Update User
 
-    # Return Response
+@app.patch("/users/{user_id}")
+def update_user(
+    user_id: int,
+    user_data: UserUpdate
+):
+
+    update_data = user_data.model_dump(
+        exclude_unset=True
+    )
 
     return {
-        "user_data": user_data,
-        "without_password": user_without_password,
-        "basic_info": user_basic_info,
-        "without_none": user_without_none
+        "user_id": user_id,
+        "updated_fields": update_data
     }
+
+
+# Return fields without their default values
+
+@app.get("/users/{user_id}/without-defaults")
+def get_user_without_defaults(user_id: int):
+
+    user = User(
+        name="Gaurav",
+        age=22,
+        email="gaurav@example.com"
+    )
+
+    return user.model_dump(
+        exclude_defaults=True
+    )
+
+
+# Return only selected fields
+
+@app.get("/users/{user_id}/basic")
+def get_basic_user(user_id: int):
+
+    user = User(
+        name="Gaurav",
+        age=22,
+        email="gaurav@example.com"
+    )
+
+    return user.model_dump(
+        include={
+            "name",
+            "email"
+        }
+    )
+
+
+# Exclude selected fields
+
+@app.get("/users/{user_id}/safe")
+def get_safe_user(user_id: int):
+
+    user = User(
+        name="Gaurav",
+        age=22,
+        email="gaurav@example.com"
+    )
+
+    return user.model_dump(
+        exclude={
+            "email"
+        }
+    )

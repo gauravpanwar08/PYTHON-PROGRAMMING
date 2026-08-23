@@ -1,14 +1,14 @@
-# ============================================================
+# ========================================================================
 #             PYDANTIC - MODEL VALIDATOR
+# model_validator() → Validates the entire model OR multiple fields at once whose validation/relationship depends on each other
 #
-# model_validator() → Validates the entire model OR multiple
-# fields at once whose validation/relationship depends on each other
-#
-# mode="before" → Before Validation/type conversion
-# mode="after"  → After Validation/type conversion
-#                 and it is the default mode
-# ============================================================
+# mode="before"          → Runs before Pydantic validates the fields
+# mode="after"           → Runs after Pydantic validates the fields
+# Cross-field Validation → Validates relationships between multiple fields
+# Model Transformation   → Can modify model data after validation
+# =========================================================================
 
+from typing import Any
 
 from fastapi import FastAPI
 from pydantic import BaseModel, model_validator
@@ -17,22 +17,50 @@ from pydantic import BaseModel, model_validator
 app = FastAPI()
 
 
-# PYDANTIC MODEL
-
 class User(BaseModel):
 
-    username: str
+    name: str
+    age: int
     password: str
     confirm_password: str
 
+    # --------------------------------------------------------
+    # mode="before"
+    # --------------------------------------------------------
 
-    # MODEL VALIDATOR
+    @model_validator(mode="before")
+    @classmethod
+    def clean_input(cls, data: Any):
+
+        if isinstance(data, dict):
+
+            if isinstance(data.get("name"), str):
+                data["name"] = data["name"].strip()
+
+        return data
+
+    # --------------------------------------------------------
+    # mode="after"
+    # --------------------------------------------------------
 
     @model_validator(mode="after")
-    def check_passwords(self):
+    def validate_age(self):
+
+        if self.age < 18:
+            raise ValueError(
+                "User must be 18 or above"
+            )
+
+        return self
+
+    # --------------------------------------------------------
+    # Cross-field Validation
+    # --------------------------------------------------------
+
+    @model_validator(mode="after")
+    def validate_passwords(self):
 
         if self.password != self.confirm_password:
-
             raise ValueError(
                 "Password and confirm password must match"
             )
@@ -40,12 +68,12 @@ class User(BaseModel):
         return self
 
 
-# FASTAPI ENDPOINT
+# Create User Endpoint
 
 @app.post("/users")
 def create_user(user: User):
 
     return {
         "message": "User created successfully",
-        "user": user
+        "user": user.model_dump()
     }
