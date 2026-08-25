@@ -1,10 +1,11 @@
-# ============================================================================
+# ==================================================================================
 #              PYDANTIC SETTINGS - CONFIGURATION
 #
-# BaseSettings → Loads configuration from environment variables and .env files.
-#
+# BaseSettings       → Loads configuration from environment variables and .env files.
 # SettingsConfigDict → Configures how settings are loaded.
-# =============================================================================
+# SecretStr          → Keeps sensitive values protected
+# .env               → Stores actual configuration separately from Python code
+# ===================================================================================
 
 
 from pydantic import SecretStr
