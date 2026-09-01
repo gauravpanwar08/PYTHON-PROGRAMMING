@@ -8,8 +8,8 @@ This is my structured Python learning and practice repository covering core conc
 ## 📌 Repository Structure
 
 - **PYTHON-PROJECTS/** → Mini projects and practical implementations (Flask, FastAPI, Django, Pygame, automation, etc.)
-- **Python-frameworks/** → Framework-specific learning (Flask, FastAPI, Django experiments)
-- **Python-Fundamentals/** → Core Python concepts (OOP, functions, loops, file handling, etc.)
+- **Python-Frameworks/** → Framework-specific learning (Flask, FastAPI, Django experiments)
+- **Python-Core/** → Core Python concepts (OOP, functions, loops, file handling, etc.)
 - **Database-Integration/** → SQL, MySQL, PostgreSQL, NoSQL practice
 - **Python-Questions/** → Problem solving, coding questions, and practice sets
 
