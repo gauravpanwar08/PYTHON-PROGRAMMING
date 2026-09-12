@@ -17,7 +17,7 @@ from sqlalchemy import create_engine, text
 
 # SQLite Database URL
 
-DATABASE_URL = "sqlite:///G:/GAURAV PANWAR/CODING/PYTHON-PROGRAMMING/Database-Integration/SQLAlchemy/Core/example.db"
+DATABASE_URL = "sqlite:///example.db"
 
 # Create Engine
 
