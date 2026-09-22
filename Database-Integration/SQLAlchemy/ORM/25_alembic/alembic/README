@@ -1,0 +1,81 @@
+
+# ============================== Alembic MOST IMPORTANT COMMANDS ===================================
+
+# Initialize
+alembic init alembic
+
+# Create empty/manual migration
+alembic revision -m "description"
+
+# Generate migration from model changes
+alembic revision --autogenerate -m "description"
+
+# Apply latest migrations
+alembic upgrade head
+
+# Apply one migration
+alembic upgrade +1
+
+# Roll back one migration
+alembic downgrade -1
+
+# Roll back to specific revision
+alembic downgrade <revision>
+
+# Roll back everything
+alembic downgrade base
+
+# Show current DB revision
+alembic current
+
+# Show migration history
+alembic history
+
+# Detailed history
+alembic history --verbose
+
+# Show migration heads
+alembic heads
+
+# Generate SQL without executing
+alembic upgrade head --sql
+
+# Check for model changes needing migration
+alembic check
+
+# Merge migration heads
+alembic merge <rev1> <rev2> -m "merge branches"
+
+
+
+============================== Alembic MENTAL MODEL ===================================
+
+                  APPLICATION
+                       │
+                       ↓
+                  ORM MODELS
+                       │
+                       ↓
+                 Base.metadata
+                       │
+                       ↓
+             Alembic Autogenerate
+                       │
+                       ↓
+              MIGRATION FILE
+                       │
+             ┌─────────┴─────────┐
+             ↓                   ↓
+         upgrade()          downgrade()
+             │                   │
+             ↓                   ↓
+        New DB Schema      Previous Schema
+             │
+             ↓
+          DATABASE
+             │
+             ↓
+     alembic_version (tracks revision)
+
+======================================================================================
+
