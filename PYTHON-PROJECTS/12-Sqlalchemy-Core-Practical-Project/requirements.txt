@@ -1,0 +1,4 @@
+# Only instal sqlalchemy and no need to install other like SQLite
+# because it is a built-in python standard library
+
+SQLAlchemy
