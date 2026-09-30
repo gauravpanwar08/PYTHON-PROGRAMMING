@@ -1,6 +1,6 @@
 -- Create database
 CREATE DATABASE company_db;
-
+CREATE DATABASE data_types_db;
 
 -- List all databases in the cluster, excluding template databases
 SELECT datname
@@ -52,4 +52,5 @@ DROP TABLE company.employees;
 -- Remove schema
 DROP SCHEMA company;
 
-
+-- Remove database
+DROP DATABASE data_types_db WITH (FORCE);
