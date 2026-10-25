@@ -3,11 +3,14 @@
 # =======================================
 
 __pycache__/
+*.py[cod]
 *.pyc
 *.pyo
 *.pyd
+*$py.class
 
 # Virtual environments (ALL patterns)
+.fastapi-venv/
 venv/
 .venv/
 *venv/
@@ -19,10 +22,11 @@ ENV/
 *env/
 **/*env/
 
-
 # Environment variables (secrets)
 .env
 .env.*
+!.env.example
+secrets.json
 
 # Logs
 *.log
@@ -33,28 +37,17 @@ alembic/versions/__pycache__/
 instance/
 .webassets-cache/
 
-# Django DB (only if using SQLite locally)
+# Database files (local / SQLite)
+*.sqlite3
+*.db
 db.sqlite3
 db.sqlite3-journal
 
-# Django collected static files (generated)
+# Django generated folders (Safe for FastAPI too)
 staticfiles/
-
-# Django media uploads (user-generated)
 media/
-
-# Django cache
 *.cache
-
-# Django migrations cache (NOT migration files)
 **/migrations/__pycache__/
-
-# =========================
-# Database files (local)
-# =========================
-
-*.sqlite3
-*.db
 
 # =========================
 #      Frontend
@@ -69,38 +62,33 @@ yarn-debug.log*
 yarn-error.log*
 
 # =========================
-# IDE / Editor
+# IDE / Editor / OS
 # =========================
 
 .vscode/
 .idea/
-
-# =========================
-# OS files
-# =========================
-
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
 .DS_Store
 Thumbs.db
 Desktop.ini
 
 # =========================
-# Testing / Cache
+# Testing / Cache / Data
 # =========================
 
 .pytest_cache/
 .coverage
 coverage/
 htmlcov/
-
-# =========================
-# AI / Temp Data
-# =========================
-
 *.pkl
 *.pickle
 
 # =========================
-# Misc
+# Misc / Temp
 # =========================
 
 *.pid
